@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChartJS</title>
+    <!-- CONFIGURAÇOES QUE VÃO ESTA DENTRO DO GRAFICO -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body style="display: flex;">
+    <!-- TELA DO GRAFICO -->
+    <div>
+        <canvas id="myChart1" style="position: relative; height:40vh; width:40vw"></canvas>
+      </div>
+      <!-- SEGUNDO GRAFICO -->
+      <div>
+        <canvas id="myChart2" style="position: relative; height:40vh; width:40vw"></canvas>
+      </div>
+      <!-- GRAFICO DA ROSQUINHA -->
+      <div>
+        <canvas id="myChart3" style="position: relative; height:40vh; width:20vw"></canvas>
+      </div>
+</body>
+ <!-- AS CONFIGURAÇOES JOGADANDO DENTRO DA TELA DO GRAFICO -->
+<script>
+    // GRAFICO  DE LINHAS
+    // CONST E UMA CONTATI NADA MUDA O VALOR DELA
+    // EIXO X
+    const labels = [
+      '12:00',
+      '13:00',
+      '14:00',
+      '15:00',
+      '16:00',
+      '17:00',
+    ];
+  
+    const data = {
+      labels: labels,
+      datasets: [{ //METRICAS
+        // LINHA DO GRAFICO
+        label: 'Temperatura', //IDENTIFICADOR
+        backgroundColor: 'rgb(255, 99, 132)', // COR DA BOLINHA
+        borderColor: 'rgb(255, 99, 132)', // COR DA LINHA
+        data: [30,29,28,25,22,23], // VALOR 
+      },
+      {
+        label: 'Umidade', 
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)', 
+        data: [80,82,80,85,80,83], 
+      }
+    ]
+    };
+  
+    const config1 = {
+      type: 'line', // TIPO DE GRAFICO
+      data: data, //DADOS | CONST DATA 
+      options: {}
+    }
+    const labels2 = [
+      'Janeiro',
+      'Fevereiro',
+      'Março',
+      'Abril',
+      'Maior',
+      'Junho',
+    ];
+    //GRAFICO EM BARRA
+    const data2 = {
+      labels: labels2,
+      datasets: [{ 
+        label: 'Temperatura Média', 
+        backgroundColor: 'rgb(255, 99, 132)', 
+        borderColor: 'rgb(255, 99, 132)', 
+        data: [22,24,27,23,20,18],  
+      },
+      {
+        label: 'Umidade Média', 
+        backgroundColor: 'rgb(54, 162, 235)',
+        borderColor: 'rgb(54, 162, 235)', 
+        data: [90,89,93,87,88,82], 
+      }
+    ]
+    };
+    const config2 = {
+      type: 'bar', 
+      data: data2,  
+      options: {}
+    }
+        // GRAFICO DA ROSQUINHA
+    const data3 = {
+     labels: [
+       'Red',
+       'Blue',
+       'Yellow'
+     ],
+     datasets: [{
+       label: 'My First Dataset',
+       data: [300, 50, 100],
+       backgroundColor: [
+         'rgb(255, 99, 132)',
+         'rgb(54, 162, 235)',
+         'rgb(255, 205, 86)'
+       ],
+       hoverOffset: 4
+     }]
+    }
+    const Plugin = {
+        id: 'custom_canvas_background_color',
+        beforeDraw: (chart) => {
+          const {ctx} = chart;
+          ctx.save();
+          ctx.globalCompositeOperation = 'destination-over';
+          ctx.fillStyle = 'lightGreen';
+          ctx.fillRect(0, 0, chart.width, chart.height);
+          ctx.restore()
+        }
+    };
+    const config3 = {
+      type: 'doughnut',
+      data: data3,
+      plugins: [Plugin],
+    }
+    
+  </script>
+  <script>
+  //CRIAR O GRAFICO DENTRO DO ID myChart
+    const myChart1 = new Chart(
+      document.getElementById('myChart1'),
+      config1
+    )
+    const myChart2 = new Chart(
+      document.getElementById('myChart2'),
+      config2
+    )
+    const myChart3 = new Chart(
+      document.getElementById('myChart3'),
+      config3
+    );
+  </script>
+</html>
